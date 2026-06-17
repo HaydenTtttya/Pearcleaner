@@ -1,17 +1,18 @@
 # Pearcleaner
 
-### Project Status: On Hold
-> As you may have noticed, development on the app has basically stopped since end of 2025, so I wanted to provide some context.
->
-> Between a new job, joining a friend who is building a SaaS company, and other life priorities, I no longer have the time needed to actively maintain or continue development on the project.
->
-> Another major reason is that I previously relied on my work MacBook for development. After changing jobs, I no longer have access to a Mac device that I can use for personal development work, which means I’m currently unable to build, test, or release updates for the app.
->
-> Because of that, issue responses, feature work, PR reviews, and new releases are effectively on hold indefinitely for now.
->
-> The project is not abandoned entirely, and I’d still like to return to it someday if circumstances change. For now though, I want to be transparent that active development is no longer possible on my end.
->
-> Thank you to everyone who has used the app, reported issues, submitted ideas, or contributed. I genuinely appreciate all of the support the project has received.
+### Community-maintained fork
+
+This repository is an independently maintained community fork of
+[alienator88/Pearcleaner](https://github.com/alienator88/Pearcleaner). The upstream project is currently
+on hold, so this fork focuses on safety, compatibility, bug fixes, and keeping the source buildable.
+
+This fork is not affiliated with or officially maintained by the original author. The original authorship,
+license, and attribution are preserved. See [CONTRIBUTING.md](CONTRIBUTING.md) before contributing and
+[ROADMAP.md](ROADMAP.md) for current priorities.
+
+> [!NOTE]
+> Community releases are source-only for now. Existing Homebrew packages and pre-built releases belong
+> to the upstream project and are not builds produced from this fork.
 
 
 <br>
@@ -21,13 +22,13 @@
    <img src="https://github.com/user-attachments/assets/62cd5fcb-92d3-4d3a-9664-161a7deabd46" align="center" width="160" height="160" />
 
    <br />
-   <strong>Status: </strong>On Hold
+   <strong>Status: </strong>Community maintenance
    <br />
-   <strong>Version: </strong>5.4.3
+   <strong>Baseline: </strong>Upstream 5.4.3
    <br />
-   <a href="https://github.com/alienator88/Pearcleaner/releases"><strong>Download</strong></a>
+   <a href="https://github.com/HaydenTtttya/Pearcleaner/releases"><strong>Community releases</strong></a>
     · 
-   <a href="https://github.com/alienator88/Pearcleaner/commits">Commits</a>
+   <a href="https://github.com/HaydenTtttya/Pearcleaner/commits">Commits</a>
   </p>
 </p>
 </br>
@@ -75,7 +76,7 @@ This project was born out of wanting to learn more on how macOS deals with app i
 
 ## Issues
 > [!WARNING]
-> - When submitting issues, please use the appropriate issue template corresponding with your problem [HERE](https://github.com/alienator88/Pearcleaner/issues/new/choose)
+> - When submitting issues, please use the appropriate issue template corresponding with your problem [HERE](https://github.com/HaydenTtttya/Pearcleaner/issues/new/choose)
 > - Issues with no template will be closed
 > - This is a personal/hobby app, therefore the project is fairly opinionated. Opinion-based requests (e.g., “the layout would look better this way”) will not be considered.
 
@@ -98,13 +99,13 @@ This project was born out of wanting to learn more on how macOS deals with app i
 <details>
   <summary>Releases</summary>
 
-Pre-compiled, always up-to-date versions are available from my [releases](https://github.com/alienator88/Pearcleaner/releases) page.
+This community fork currently publishes source-only releases on its [releases](https://github.com/HaydenTtttya/Pearcleaner/releases) page. The original project's pre-built releases remain available from [upstream](https://github.com/alienator88/Pearcleaner/releases), but they are not maintained by this fork.
 </details>
 
 <details>
   <summary>Homebrew</summary>
 
-You can add the app via Homebrew:
+The existing Homebrew cask installs the upstream build, not this community fork:
 ```
 brew install --cask pearcleaner
 ```
@@ -115,7 +116,7 @@ If you are able to contribute to translations for the app, please see this discu
 
 ## License
 > [!IMPORTANT]
-> Pearcleaner is licensed under Apache 2.0 with [Commons Clause](https://commonsclause.com/). This means that you can do anything you'd like with the source, modify it, contribute to it, etc., but the license explicitly prohibits any form of monetization for Pearcleaner or any modified versions of it. See full license [HERE](https://github.com/alienator88/Pearcleaner/blob/main/LICENSE.md)
+> Pearcleaner is licensed under Apache 2.0 with [Commons Clause](https://commonsclause.com/). This means that you can do anything you'd like with the source, modify it, contribute to it, etc., but the license explicitly prohibits any form of monetization for Pearcleaner or any modified versions of it. See the full [license](LICENSE.md).
 
 ## Thanks
 

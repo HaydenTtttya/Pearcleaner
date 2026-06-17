@@ -1,15 +1,17 @@
-This project is now in **maintenance mode**.
+This community fork is in **safety-first maintenance mode**.
 
 ---
 
-I’m no longer accepting **NEW** feature requests as Pearcleaner has grown to be fairly feature rich, 
-and I want to avoid it ballooning further in size or scope. Keeping the project stable, focused, and maintainable is now the priority. Going forward, the focus will be on:
+Pearcleaner is already feature rich, so keeping it safe, stable, focused, and maintainable is the
+priority. Current work focuses on:
 
-- Bug fixes
-- Regressions
-- Small improvements to already existing features
+- Preventing accidental deletion or app corruption
+- Bug fixes and regressions
+- Current macOS and Xcode compatibility
+- Small reliability improvements to existing features
 
-Issues related to bugs are still welcome, and reasonable pull requests that focus on fixes or reliability 
-improvements will still be reviewed. New feature requests will be ignored/closed if submitted.
+Bug reports and focused pull requests are welcome. Large new features may be deferred until the safety
+and build foundations in [ROADMAP.md](../../ROADMAP.md) are complete.
 
-Thanks to everyone who has used the project, filed issues, and contributed over time!
+This is an independent community fork. The upstream project and original author remain credited in the
+README and license.
