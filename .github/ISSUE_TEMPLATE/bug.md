@@ -17,7 +17,7 @@ Thanks for helping make Pearcleaner better! Before you submit your issue, please
 ### New Issue Checklist
 
 - [ ] I updated Pearcleaner to the latest version and still observe the issue
-- [ ] I searched for [existing GitHub issues](https://github.com/alienator88/pearcleaner/issues)
+- [ ] I searched for [existing GitHub issues](https://github.com/HaydenTtttya/Pearcleaner/issues)
 - [ ] OS Version: [e.g. 13.0]
 - [ ] Pearcleaner Version: [e.g. 3.x.x]
 
