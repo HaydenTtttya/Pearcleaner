@@ -1,0 +1,99 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "[0-9]+.[0-9]+.[0-9]+"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  community-release:
+    name: Build community release
+    runs-on: macos-26
+    timeout-minutes: 45
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Validate tag and app version
+        shell: bash
+        run: |
+          set -euo pipefail
+          app_version=$(xcodebuild \
+            -project Pearcleaner.xcodeproj \
+            -scheme "Pearcleaner Release" \
+            -configuration Release \
+            -showBuildSettings | awk '/ APP_VERSION = / { print $3; exit }')
+
+          if [[ "$GITHUB_REF_NAME" != "$app_version" ]]; then
+            echo "Tag $GITHUB_REF_NAME does not match app version $app_version" >&2
+            exit 1
+          fi
+
+      - name: Build without a distribution certificate
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project Pearcleaner.xcodeproj \
+            -scheme "Pearcleaner Release" \
+            -configuration Release \
+            -derivedDataPath .derivedData \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            build
+
+      - name: Apply ad-hoc signatures
+        shell: bash
+        run: |
+          set -euo pipefail
+          app_path="$GITHUB_WORKSPACE/.derivedData/Build/Products/Release/Pearcleaner.app"
+
+          # Xcode strips development headers after copying Sparkle, invalidating
+          # only the framework's outer seal. Re-sign the outer framework while
+          # preserving its already signed nested components.
+          codesign --force --sign - --timestamp=none --options runtime \
+            "$app_path/Contents/Frameworks/Sparkle.framework"
+          codesign --force --sign - --timestamp=none --options runtime \
+            "$app_path/Contents/MacOS/PearcleanerSentinel"
+          codesign --force --sign - --timestamp=none --options runtime \
+            "$app_path/Contents/MacOS/PearcleanerHelper"
+          codesign --force --sign - --timestamp=none --options runtime \
+            --entitlements .github/entitlements/FinderOpenAdHoc.entitlements \
+            "$app_path/Contents/PlugIns/FinderOpen.appex"
+          codesign --force --sign - --timestamp=none --options runtime \
+            --entitlements .github/entitlements/PearcleanerAdHoc.entitlements \
+            "$app_path"
+
+          codesign --verify --deep --strict --verbose=2 "$app_path"
+
+      - name: Package and checksum
+        shell: bash
+        run: |
+          set -euo pipefail
+          app_path="$GITHUB_WORKSPACE/.derivedData/Build/Products/Release/Pearcleaner.app"
+          mkdir -p dist
+          ditto -c -k --sequesterRsrc --keepParent "$app_path" dist/Pearcleaner.zip
+          ditto -x -k dist/Pearcleaner.zip dist/verify
+          codesign --verify --deep --strict --verbose=2 dist/verify/Pearcleaner.app
+          (cd dist && shasum -a 256 Pearcleaner.zip > Pearcleaner.zip.sha256)
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            dist/Pearcleaner.zip \
+            dist/Pearcleaner.zip.sha256 \
+            --repo "$GITHUB_REPOSITORY" \
+            --verify-tag \
+            --latest \
+            --title "Pearcleaner v${GITHUB_REF_NAME} Community" \
+            --generate-notes \
+            --notes "Community-maintained ad-hoc-signed build. This release is not notarized or verified by Apple. Verify the SHA-256 checksum before installation, then right-click the app and choose Open. Features that require an Apple Team ID, including service registration and extensions, may be unavailable on some macOS versions."
