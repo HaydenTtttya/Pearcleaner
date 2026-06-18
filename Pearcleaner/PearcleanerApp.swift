@@ -19,7 +19,7 @@ struct PearcleanerApp: App {
     //MARK: StateObjects
     @StateObject var locations = Locations()
     @StateObject var fsm = FolderSettingsManager.shared
-    @StateObject private var updater = Updater(owner: "alienator88", repo: "Pearcleaner")
+    @StateObject private var updater = Updater(owner: "HaydenTtttya", repo: "Pearcleaner")
 
     init() {
         //MARK: GUI or CLI launch mode.

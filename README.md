@@ -11,8 +11,9 @@ license, and attribution are preserved. See [CONTRIBUTING.md](CONTRIBUTING.md) b
 [ROADMAP.md](ROADMAP.md) for current priorities.
 
 > [!NOTE]
-> Community releases are source-only for now. Existing Homebrew packages and pre-built releases belong
-> to the upstream project and are not builds produced from this fork.
+> Community releases include a free ad-hoc-signed build. They are not notarized or verified by Apple,
+> so macOS may require explicit approval before first launch. Existing Homebrew packages and upstream
+> releases are not builds produced from this fork.
 
 
 <br>
@@ -99,7 +100,19 @@ This project was born out of wanting to learn more on how macOS deals with app i
 <details>
   <summary>Releases</summary>
 
-This community fork currently publishes source-only releases on its [releases](https://github.com/HaydenTtttya/Pearcleaner/releases) page. The original project's pre-built releases remain available from [upstream](https://github.com/alienator88/Pearcleaner/releases), but they are not maintained by this fork.
+Download `Pearcleaner.zip` and its checksum from the community [releases](https://github.com/HaydenTtttya/Pearcleaner/releases) page. Verify the download before extracting it:
+
+```sh
+shasum -a 256 -c Pearcleaner.zip.sha256
+```
+
+Move `Pearcleaner.app` to `/Applications`, then right-click it and choose **Open**. If macOS still blocks the app, remove quarantine from this community build:
+
+```sh
+xattr -dr com.apple.quarantine /Applications/Pearcleaner.app
+```
+
+Community binaries are ad-hoc signed and are not notarized or verified by Apple. Because they have no Apple Team ID, identity-bound integrations such as the privileged helper, Sentinel login item, or Finder extension may be unavailable on some macOS versions. Only download them from this fork. The original project's releases remain available from [upstream](https://github.com/alienator88/Pearcleaner/releases), but they are not maintained by this fork.
 </details>
 
 <details>
